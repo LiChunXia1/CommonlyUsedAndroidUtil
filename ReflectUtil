@@ -1,0 +1,51 @@
+import android.widget.Toast;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+
+public class ReflectUtil {
+
+    // 调用方法
+    public static Object callMethod(String classPath, String methodName)throws Exception {
+        // 对应类对象
+        Class<?> classz = Class.forName(classPath);
+        // 创建对象
+        Object obj = classz.newInstance();
+        // 得到方法对象  注意：可以填写：形参列表(String.class)  !!!
+        Method method = classz.getDeclaredMethod(methodName);
+        // 爆破
+        method.setAccessible(true);
+        // 调用方法   注意：形参列表有String.class那么就，形参列表：invoke(obj,"Hello") !!!
+        return method.invoke(obj);
+    }
+
+
+    // 修改变量值  只有静态变量才可以被修改
+    public static void setVariableValue(String classPath, String variableName, Object variableValue)throws Exception {
+        // 对应类对象
+        Class<?> classz = Class.forName(classPath);
+        // 创建对象
+        Object obj = classz.newInstance();
+        // 指定变量名
+        Field field = classz.getDeclaredField(variableName);
+        // 爆破
+        field.setAccessible(true);
+        // 设置变量值
+        field.set(obj, variableValue);
+    }
+
+
+    // 提取变量值  
+    public static Object getVariableValue(String classPath, String variableName)throws Exception {
+        // 对应类对象
+        Class<?> classz = Class.forName(classPath);
+        // 创建对象
+        Object obj = classz.newInstance();
+        // 指定变量名
+        Field field = classz.getDeclaredField(variableName);
+        // 爆破
+        field.setAccessible(true);
+        // 获得变量值
+        return field.get(obj);
+    }
+}
