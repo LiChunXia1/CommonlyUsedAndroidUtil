@@ -16,7 +16,7 @@ public class LayoutUtil {
 	}
     
     // 获取Context中的布局
-    public static View getContextView(Context context, int R_LAYOUT_ID) {
+    public static View getContextView(Context context, int viewLayoutId) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return layoutInflater.inflate(R_LAYOUT_ID, null);
 	}
